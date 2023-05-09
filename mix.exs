@@ -53,6 +53,7 @@ defmodule Marko.MixProject do
       {:vapor, "~> 0.10"},
       {:uuid, "~> 1.1"},
       {:timex, "~> 3.7"},
+      {:heroicons, "~> 0.5"},
 
       # Dev env deps
       {:phoenix_live_reload, "~> 1.2", only: :dev},
