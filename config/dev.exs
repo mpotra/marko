@@ -2,10 +2,6 @@ import Config
 
 # Configure your database
 config :marko, Marko.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
-  database: "marko_dev",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
@@ -19,11 +15,10 @@ config :marko, Marko.Repo,
 config :marko, MarkoWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
-  http: [ip: {127, 0, 0, 1}, port: 4000],
+  # http: [ip: {127, 0, 0, 1}, port: 4000],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "T7CSVsTpkFVdL7I+jEvlKj7Csr9jzOscXQKeXBnPOP3h5si/0R+xx7AhD5puxFpl",
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
     tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}

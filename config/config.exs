@@ -8,11 +8,24 @@
 import Config
 
 config :marko,
-  ecto_repos: [Marko.Repo]
+  ecto_repos: [Marko.Repo],
+  generators: [binary_id: true]
+
+config :marko, Marko.Repo,
+  migration_timestamps: [
+    type: :utc_datetime_usec
+  ],
+  migration_primary_key: [
+    name: :id,
+    type: :uuid,
+    autogenerate: false,
+    read_after_writes: true,
+    default: {:fragment, "uuid_generate_v4()"}
+  ]
 
 # Configures the endpoint
 config :marko, MarkoWeb.Endpoint,
-  url: [host: "localhost"],
+  # url: [host: "localhost"],
   render_errors: [
     formats: [html: MarkoWeb.ErrorHTML, json: MarkoWeb.ErrorJSON],
     layout: false

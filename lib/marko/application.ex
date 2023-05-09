@@ -7,6 +7,8 @@ defmodule Marko.Application do
 
   @impl true
   def start(_type, _args) do
+    config = Marko.Config.load!()
+
     children = [
       # Start the Telemetry supervisor
       MarkoWeb.Telemetry,
@@ -17,7 +19,7 @@ defmodule Marko.Application do
       # Start Finch
       {Finch, name: Marko.Finch},
       # Start the Endpoint (http/https)
-      MarkoWeb.Endpoint
+      {MarkoWeb.Endpoint, config.endpoint}
       # Start a worker by calling: Marko.Worker.start_link(arg)
       # {Marko.Worker, arg}
     ]
