@@ -14,16 +14,16 @@ defmodule MarkoWeb.TabbedPageLive do
         <:tab id={:tab_1} path={~p"/page_c/tab_1"} name="Tab 1">
           <p>
             Go to&nbsp;
-            <.link patch={~p"/page_a"} class="inline-flex items-baseline">
-              <Heroicons.document class="w-3 h-3 mr-2" /> Page A
+            <.link patch={~p"/page_b"} class="inline-flex items-baseline">
+              <Heroicons.document class="w-3 h-3 mr-2" /> Page B
             </.link>
           </p>
         </:tab>
         <:tab id={:tab_2} path={~p"/page_c/tab_2"} name="Tab 2">
           <p>
             Go to&nbsp;
-            <.link patch={~p"/page_b"} class="inline-flex items-baseline">
-              <Heroicons.document class="w-3 h-3 mr-2" /> Page B
+            <.link patch={~p"/page_a"} class="inline-flex items-baseline">
+              <Heroicons.document class="w-3 h-3 mr-2" /> Page A
             </.link>
           </p>
         </:tab>
