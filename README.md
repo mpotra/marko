@@ -1,4 +1,4 @@
-[![CI Build](https://github.com/mpotra/marko/actions/workflows/ci.yml/badge.svg?branch=main&event=status)](https://github.com/mpotra/marko/actions/workflows/ci.yml)
+[![Build CI](https://github.com/mpotra/marko/actions/workflows/ci.yml/badge.svg?branch=main&event=push)](https://github.com/mpotra/marko/actions/workflows/ci.yml)
 
 # Marko
 
