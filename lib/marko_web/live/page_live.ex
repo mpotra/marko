@@ -21,7 +21,7 @@ defmodule MarkoWeb.PageLive do
           </p>
           <p>
             Go to&nbsp;
-            <.link patch={~p"/page_c/tab_1"} class="inline-flex items-baseline">
+            <.link navigate={~p"/page_c/tab_1"} class="inline-flex items-baseline">
               <Heroicons.folder class="w-3 h-3 mr-2" /> Page C
               &nbsp; <Heroicons.chevron_right class="w-3 h-3 mr-2" />
               <Heroicons.document class="w-3 h-3 mr-2" /> Tab 1
@@ -36,7 +36,7 @@ defmodule MarkoWeb.PageLive do
           </p>
           <p>
             Go to&nbsp;
-            <.link patch={~p"/page_c/tab_2"} class="inline-flex items-baseline">
+            <.link navigate={~p"/page_c/tab_2"} class="inline-flex items-baseline">
               <Heroicons.folder class="w-3 h-3 mr-2" /> Page C
               &nbsp; <Heroicons.chevron_right class="w-3 h-3 mr-2" />
               <Heroicons.document class="w-3 h-3 mr-2" /> Tab 2
