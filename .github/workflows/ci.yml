@@ -1,0 +1,115 @@
+name: CI
+
+on:
+  pull_request:
+    types: [opened, reopened]
+  push:
+
+jobs:
+  deps:
+    name: Dependencies
+    runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+
+    strategy:
+      matrix:
+        otp: ['25.3']
+        elixir: ['1.14.4']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Install OPT and Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          otp-version: ${{matrix.otp}}
+          elixir-version: ${{matrix.elixir}}
+
+      - name: Retrieve Cached Dependencies
+        uses: actions/cache@v2
+        id: elixir-deps-cache
+        with:
+          path: |
+            deps
+            _build
+          key: |
+            ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-elixir-deps-${{ hashFiles('mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-elixir-deps-${{ hashFiles('mix.lock') }}-
+            ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-elixir-deps-
+
+      - name: Install Dependencies
+        if: steps.elixir-deps-cache.outputs.cache-hit != 'true'
+        run: |
+          mix local.rebar --force
+          mix local.hex --force
+          mix deps.get
+          MIX_ENV=test mix deps.get
+          mix deps.compile
+          MIX_ENV=test mix deps.compile
+
+  build:
+    name: Build Elixir Application
+    needs: deps
+    runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+    services:
+      postgres:
+        image: postgres:15.2
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    strategy:
+      matrix:
+        otp: ['25.3']
+        elixir: ['1.14.4']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Install OPT and Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          otp-version: ${{matrix.otp}}
+          elixir-version: ${{matrix.elixir}}
+
+      - name: Retrieve Cached Dependencies
+        uses: actions/cache@v2
+        id: elixir-deps-cache
+        with:
+          path: |
+            deps
+            _build
+          key: |
+            ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-elixir-deps-${{ hashFiles('mix.lock') }}
+
+      - name: Build application
+        run: mix compile --warnings-as-errors
+
+      - name: Check Code Format
+        run: mix format mix.exs "config/*.exs" "lib/**/*.{ex,exs,heex}" "test/**/*.{ex,exs}" --check-formatted
+
+      - name: Run Credo
+        run: mix credo --all --strict
+
+      - name: Build test application
+        run: MIX_ENV=test mix compile --warnings-as-errors
+
+      - name: Run test
+        run: mix test --trace --slowest 10
+        env:
+          DATABASE_URL: ecto://postgres:postgres@localhost:5432/marko_test
