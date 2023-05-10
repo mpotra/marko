@@ -1,3 +1,5 @@
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/mpotra/marko/ci.yml?label=build&style=flat-square&branch=main)
+
 # Marko
 
 To start your Phoenix server:
