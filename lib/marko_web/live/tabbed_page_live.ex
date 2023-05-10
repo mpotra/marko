@@ -10,7 +10,7 @@ defmodule MarkoWeb.TabbedPageLive do
   @impl true
   def render(assigns) do
     ~H"""
-    <section>
+    <section id="tabbed_page" phx-hook="PageView" data-page={@page}>
       <.live_component module={LiveTabs} id="tabs" select_tab={@page}>
         <:tab id={:tab_1} path={~p"/page_c/tab_1"} name="Tab 1">
           <p>

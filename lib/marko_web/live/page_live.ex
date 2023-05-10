@@ -10,7 +10,7 @@ defmodule MarkoWeb.PageLive do
   @impl true
   def render(assigns) do
     ~H"""
-    <section>
+    <section id="page_live" phx-hook="PageView" data-page={@page}>
       <%= case @page do %>
         <% :page_a -> %>
           <p>
