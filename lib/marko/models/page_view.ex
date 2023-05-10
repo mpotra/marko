@@ -20,6 +20,7 @@ defmodule Marko.PageView do
 
     field :state, :string, default: "init", virtual: true
     field :paused_at, :utc_datetime_usec, virtual: true
+    field :finished, :boolean, default: false, virtual: true
 
     timestamps()
   end

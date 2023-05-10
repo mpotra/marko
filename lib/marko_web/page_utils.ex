@@ -21,7 +21,7 @@ defmodule MarkoWeb.PageUtils do
   def end_pageview(
         %{
           assigns: %{
-            pageview: %PageView{} = pageview
+            pageview: %PageView{finished: false} = pageview
           }
         } = socket
       ) do
@@ -29,6 +29,7 @@ defmodule MarkoWeb.PageUtils do
       pageview
       |> PageView.pause()
       |> PageViews.register!()
+      |> Map.put(:finished, true)
 
     socket
     |> assign(:pageview, %{pageview | paused_at: DateTime.utc_now()})

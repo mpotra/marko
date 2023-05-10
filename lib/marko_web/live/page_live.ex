@@ -83,6 +83,11 @@ defmodule MarkoWeb.PageLive do
   end
 
   @impl true
+  def terminate(_reason, socket) do
+    PageUtils.end_pageview(socket)
+  end
+
+  @impl true
   def handle_event("page-resume", %{"page" => _page} = _params, socket) do
     socket = PageUtils.resume_pageview(socket)
     {:reply, %{engagementTime: PageUtils.get_engagement_time(socket)}, socket}
