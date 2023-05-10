@@ -2,9 +2,16 @@ defmodule MarkoWeb.PageLiveTest do
   use MarkoWeb.ConnCase
   import Phoenix.LiveViewTest
 
+  alias Plug.Conn
+
+  setup do
+    conn = Conn.put_req_header(build_conn(), "user-agent", "test")
+    {:ok, %{conn: conn}}
+  end
+
   describe "Page A" do
-    setup do
-      conn = get(build_conn(), "/page_a")
+    setup %{conn: conn} do
+      conn = get(conn, "/page_a")
       {:ok, %{conn: conn}}
     end
 
@@ -36,8 +43,8 @@ defmodule MarkoWeb.PageLiveTest do
   end
 
   describe "Page B" do
-    setup do
-      conn = get(build_conn(), "/page_b")
+    setup %{conn: conn} do
+      conn = get(conn, "/page_b")
       {:ok, %{conn: conn}}
     end
 

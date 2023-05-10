@@ -1,10 +1,16 @@
 defmodule MarkoWeb.TabbedPageLiveTest do
   use MarkoWeb.ConnCase
   import Phoenix.LiveViewTest
+  alias Plug.Conn
+
+  setup do
+    conn = Conn.put_req_header(build_conn(), "user-agent", "test")
+    {:ok, %{conn: conn}}
+  end
 
   describe "Page C" do
-    setup do
-      conn = get(build_conn(), "/page_c")
+    setup %{conn: conn} do
+      conn = get(conn, "/page_c")
       {:ok, %{conn: conn}}
     end
 
@@ -14,8 +20,8 @@ defmodule MarkoWeb.TabbedPageLiveTest do
   end
 
   describe "Page C - Tab 1" do
-    setup do
-      conn = get(build_conn(), "/page_c/tab_1")
+    setup %{conn: conn} do
+      conn = get(conn, "/page_c/tab_1")
       {:ok, %{conn: conn}}
     end
 
@@ -57,8 +63,8 @@ defmodule MarkoWeb.TabbedPageLiveTest do
   end
 
   describe "Page C - Tab 2" do
-    setup do
-      conn = get(build_conn(), "/page_c/tab_2")
+    setup %{conn: conn} do
+      conn = get(conn, "/page_c/tab_2")
       {:ok, %{conn: conn}}
     end
 
