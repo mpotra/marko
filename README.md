@@ -1,4 +1,4 @@
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/mpotra/marko/ci.yml?label=build&style=flat-square&branch=main)
+[![CI Build](https://github.com/mpotra/marko/actions/workflows/ci.yml/badge.svg?branch=main&event=status)](https://github.com/mpotra/marko/actions/workflows/ci.yml)
 
 # Marko
 
