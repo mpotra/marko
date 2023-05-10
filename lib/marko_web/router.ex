@@ -8,6 +8,7 @@ defmodule MarkoWeb.Router do
     plug :put_root_layout, {MarkoWeb.Layouts, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug MarkoWeb.PlugSession
   end
 
   pipeline :api do
