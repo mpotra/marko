@@ -1,4 +1,7 @@
 defmodule MarkoWeb.LiveTabs do
+  @moduledoc """
+  Module that renders a LiveTabs component
+  """
   use MarkoWeb, :live_component
 
   slot :tab
@@ -44,9 +47,5 @@ defmodule MarkoWeb.LiveTabs do
 
   def mount(socket) do
     {:ok, socket}
-  end
-
-  def update(assigns, socket) do
-    {:ok, socket |> assign(assigns)}
   end
 end
