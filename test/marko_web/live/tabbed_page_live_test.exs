@@ -43,7 +43,7 @@ defmodule MarkoWeb.TabbedPageLiveTest do
       |> element("a[href=\"/page_b\"]")
       |> render_click()
 
-      assert assert_patch(view, ~p"/page_b")
+      assert assert_redirect(view, ~p"/page_b")
     end
 
     test "has tab link to Tab 2", %{conn: conn} do
@@ -86,7 +86,7 @@ defmodule MarkoWeb.TabbedPageLiveTest do
       |> element("a[href=\"/page_a\"]")
       |> render_click()
 
-      assert assert_patch(view, ~p"/page_a")
+      assert assert_redirect(view, ~p"/page_a")
     end
 
     test "has tab link to Tab 1", %{conn: conn} do
